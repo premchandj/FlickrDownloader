@@ -25,8 +25,6 @@ my $delimiter = $ctrlA;
 my $cookieFile = $ARGV[0];
 my $startPage = $ARGV[1];
 my $startNumber = $ARGV[2];
-#print "cookieFile=$cookieFile\n";
-#print "startPage=$startPage\n";
 
 my $count = 0;
 my $url = $startPage;
@@ -36,11 +34,8 @@ while(true){
     my @outArr = ();
     getCurlFile($url, $cookieFile, \@outArr, 0, '1.txt', true);
     getAllPicturesInPage(\@outArr);
-    #print "\n=================\n";
     $url = getNextPageUrl(\@outArr);
     if($url eq ''){last;}
-    #if($count == 100){last;}
-    #last;
 }
 
 sub getAllPicturesInPage
@@ -50,7 +45,6 @@ sub getAllPicturesInPage
 	if(
 	    $l =~ 'data-photo-media="photo"'
 	    ){
-	    #print $l;
 	    my @a1 = split /href=$double_quotes/, $l;
 	    my @a2=split/$double_quotes/, $a1[1];
 	    my @aa2 = split /\//, $a2[0];
@@ -94,8 +88,6 @@ sub getAllPicturesInPage
 
 	    my $tags = getTags($fullDetailsPhotoPageUrl);
 
-	    #print "originalPhotoPageUrl:$originalFileUrl${delimiter}lightboxPhotoPageUrl:$lightboxPhotoPageUrl${delimiter}fullDetailsPhotoPageUrl:$fullDetailsPhotoPageUrl${delimiter}photoTitle:$photoTitle${delimiter}$tags\n===\n";
-
 	    my $localFileName = getLocalFileName('image');
 	    my @outArr6 = ();
             getCurlFile($originalFileUrl, $cookieFile, \@outArr6, 0, $localFileName, false);
@@ -106,7 +98,6 @@ sub getAllPicturesInPage
             my @a1 = split /href=$double_quotes/, $l;
             my @a2 = split/$double_quotes/, $a1[1];
 	    my $videoUrl = $a2[0];
-	    #print "videoUrl=$videoUrl\n";
             my $videoPageUrl = 'http://www.flickr.com'.$videoUrl;
 	    my $tags = getTags($videoPageUrl);
 	    my $videoPageUrl1 = '';
@@ -127,7 +118,6 @@ sub getAllPicturesInPage
             my @a3 = split /alt=$double_quotes/, $l;
             my @a4=split/$double_quotes/, $a3[1];
             my $videoTitle = $a4[0];
-	    #print "videoPageUrl:$videoPageUrl1${delimiter}videoTitle:$videoTitle\n===\n";
 
 	    my $localFileName = getLocalFileName('video');
 	    my @outArr6 = ();
@@ -154,8 +144,6 @@ sub getNextPageUrl
     my $retVal;
     foreach my $l(@$outArr){
 	if($l =~ 'Next rapidnofollow'){
-	    #print "XXX:$l";
-            #<a data-track="next" href="/photos/premj/page2/" class="Next rapidnofollow">next &rarr;</a>
 	    my @a1 = split /$double_quotes/, $l;
 	    $retVal = 'http://www.flickr.com/'.$a1[3];
 	    last;
@@ -173,7 +161,6 @@ sub getCurlFile
     my $outFile = shift;
     my $retArr = shift;
 
-    #my $outFile = '1.txt';
     my $c = 'curl -b '.$cookieFile." '".$url."'".' -o '.$outFile;
     if($withStdErr == 1){
 	$c = 'curl -v -b '.$cookieFile." '".$url."'".' 2>&1 '." > $outFile";
