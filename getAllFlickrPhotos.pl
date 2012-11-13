@@ -4,7 +4,7 @@
 
 #USAGE: perl getAllFlickrPhotos.pl COOKIE_FILE FLICKR_START_PAGE START_INDEX_NUMBER                                                                   
 
-#Ex: perl getAllFlickrPhotos.pl myCookieFile.txt 'http://www.flickr.com/photos/premj/page3' 2>/dev/null > ./meta.txt                                  
+#Ex: perl getAllFlickrPhotos.pl myCookieFile.txt 'http://www.flickr.com/photos/premj/page3' 1 2>/dev/null > ./meta.txt                                  
 
 #meta.txt file will have entries of this format                                                                                                       
 
