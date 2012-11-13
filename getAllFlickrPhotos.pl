@@ -1,11 +1,23 @@
 #!/usr/bin/perl
 
-#USAGE: perl getAllFlickrPhotos.pl COOKIE_FILE FLICKR_START_PAGE START_INDEX_NUMBER
-#Ex: perl getAllFlickrPhotos.pl myCookieFile.txt 'http://www.flickr.com/photos/premj/page3' 2>/dev/null > ./meta.txt
+#If you have a flickr premium account, and want to download all your images & videos to your local disk, you can use this perl script to do that. It would need a cookie file dump(you can get it thru firebug), and enough diskspace to download all your files. Usage is like this
+
+#USAGE: perl getAllFlickrPhotos.pl COOKIE_FILE FLICKR_START_PAGE START_INDEX_NUMBER                                                                   
+
+#Ex: perl getAllFlickrPhotos.pl myCookieFile.txt 'http://www.flickr.com/photos/premj/page3' 2>/dev/null > ./meta.txt                                  
+
+#meta.txt file will have entries of this format                                                                                                       
+
+#LOCAL_FILE_NAME FLICKR_URL_FOR_SAME_FILE TITLE TAGS SET                                                                                              
+
+#Delimiter is ^A                                                                                                                                      
+
+#Tags are ^B delimited 
 
 my $double_quotes='"';
 my $colon=':';
-my $ctrlM = '';
+my $ctrlM = '
+';
 my $ctrlA = '';
 my $ctrlB = '';
 my $delimiter = $ctrlA;
